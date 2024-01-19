@@ -10,7 +10,7 @@ function App() {
 
   const callOcrApi = async () => {
     try {
-      const imageUrl = 'http://dl.a9t9.com/ocrbenchmark/eng.png';
+      const imageUrl = 'C:/Users/Summer/OneDrive/Pictures/pictotextcrop.PNG';
       const response = await fetch('http://localhost:3001/perform-ocr', {
         method: 'POST',
         headers: {
@@ -24,14 +24,14 @@ function App() {
       }
   
       const data = await response.json();
-      setResult(data);
-      console.log(data);
+      setResult(data.ParsedResults[0].ParsedText);
+      console.log(data.ParsedResults[0].ParsedText);
     } catch (err) {
       setError(err.message);
     }
   };
   
-
+  
   useEffect(() => {
     
   }, [])
@@ -60,6 +60,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+       {result ? result:null}
     </>
   )
 }
