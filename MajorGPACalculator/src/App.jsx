@@ -1,11 +1,40 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
 
+  const callOcrApi = async () => {
+    try {
+      const imageUrl = 'http://dl.a9t9.com/ocrbenchmark/eng.png';
+      const response = await fetch('http://localhost:3001/perform-ocr', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ imageUrl }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('OCR failed');
+      }
+  
+      const data = await response.json();
+      setResult(data);
+      console.log(data);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+  
+
+  useEffect(() => {
+    
+  }, [])
   return (
     <>
       <div>
@@ -20,6 +49,9 @@ function App() {
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
+        </button>
+        <button onClick={callOcrApi}>
+          API
         </button>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
