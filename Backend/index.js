@@ -4,9 +4,14 @@ const { ocrSpace } = require('ocr-space-api-wrapper');
 const cors = require('cors');
 const pdf = require('pdf-parse');
 const fs = require('fs');
-app.use(cors());
+const API_KEY = require('dotenv').config().parsed.API_KEY // add the api key to the env instead of having it in the codebase
 
+
+app.use(cors());
 app.use(express.json());
+
+
+
 
 // CORS configuration
 const corsOptions = {
@@ -19,7 +24,7 @@ app.use(cors(corsOptions));
 
 app.post('/perform-ocr', async (req, res) => {
   try {
-    const response = await ocrSpace(req.body.imageUrl, { apiKey: 'K82848076288957' });
+    const response = await ocrSpace(req.body.imageUrl, { apiKey: API_KEY });
     res.json(response);
   } catch (error) {
     res.status(500).send(error.message);
