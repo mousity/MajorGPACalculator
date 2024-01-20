@@ -1,31 +1,39 @@
 import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import axios from 'axios'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState('');
   const [error, setError] = useState(null);
 
-  const callOcrApi = async () => {
+  const formData = new FormData();
+  formData.append('file', null);
+
+  function handleFile(event) {
+    formData.set('file', event.target.files[0]);
+  }
+
+  async function callOcrApi() {
     try {
-      const imageUrl = 'C:/Users/Summer/OneDrive/Pictures/pictotextcrop.PNG';
-      const response = await fetch('http://localhost:3001/perform-ocr', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ imageUrl }),
-      });
+      // const imageUrl = 'C:/Users/Summer/OneDrive/Pictures/pictotextcrop.PNG';
+      // const response = await fetch('http://localhost:3001/perform-ocr', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({ imageUrl }),
+      // });
   
-      if (!response.ok) {
-        throw new Error('OCR failed');
-      }
-  
-      const data = await response.json();
-      setResult(data.ParsedResults[0].ParsedText);
-      console.log(data.ParsedResults[0].ParsedText);
+      // if (!response.ok) {
+      //   throw new Error('OCR failed');
+      // }
+      axios.post('http://localhost:3001/extract-text', formData).then(response => {
+        console.log(response.data.text);
+        setResult(response.data.text);
+      })
     } catch (err) {
       setError(err.message);
     }
@@ -37,21 +45,14 @@ function App() {
   }, [])
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className='heading'>
+        
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <input type="file" onChange={handleFile} />
         <button onClick={callOcrApi}>
-          API
+          Upload
         </button>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
