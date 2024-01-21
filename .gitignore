@@ -3,3 +3,5 @@ node_modules
 .env
 SamrMounaTranscriptFall20231.pdf
 *.pdf
+*.json
+*.txt
