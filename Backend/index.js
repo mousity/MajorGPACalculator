@@ -15,6 +15,7 @@ var storage = multer.diskStorage({
   }
 })
 var upload = multer({ storage: storage });
+var convertapi = require('convertapi')('BSqKQMmAR6SIiacO');
 app.use(cors());
 app.use(express.json());
 
@@ -51,9 +52,14 @@ app.get('/extract-text', (req, res) => {
 });
 
 app.post('/extract-text', upload.single('file'), (req, res) => {//currently using this one from frontend
-  console.log(req.file);
+  // console.log(req.file);
   const pdfPath = "./" + req.file.path;
-  console.log(pdfPath);
+  // console.log(pdfPath);
+  convertapi.convert('decrypt', {
+    File: pdfPath
+  }, 'pdf').then(function (result) {
+    result.saveFiles(pdfPath);
+  });
   let dataBuffer = fs.readFileSync(pdfPath);
   pdf(dataBuffer).then(function (data) {
     console.log({ text: data.text })

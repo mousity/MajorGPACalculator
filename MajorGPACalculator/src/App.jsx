@@ -4,7 +4,7 @@ import axios from 'axios'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
   const [result, setResult] = useState('');
   const [error, setError] = useState(null);
 
@@ -12,10 +12,13 @@ function App() {
   formData.append('file', null);
 
   function handleFile(event) {
+    event.preventDefault();
     formData.set('file', event.target.files[0]);
+    console.log('file set')
   }
 
-  async function callOcrApi() {
+  async function callOcrApi(event) {
+    event.preventDefault();
     try {
       // const imageUrl = 'C:/Users/Summer/OneDrive/Pictures/pictotextcrop.PNG';
       // const response = await fetch('http://localhost:3001/perform-ocr', {
@@ -29,19 +32,20 @@ function App() {
       // if (!response.ok) {
       //   throw new Error('OCR failed');
       // }
+      console.log('sending file')
       axios.post('http://localhost:3001/extract-text', formData).then(response => {
         console.log(response.data.text);
         setResult(response.data.text);
       })
+      console.log('file sent')
     } catch (err) {
       setError(err.message);
     }
   };
 
 
-  useEffect(() => {
-
-  }, [])
+  // useEffect(() => {
+  // }, [])
   return (
     <>
       <div className='heading'>
@@ -53,11 +57,11 @@ function App() {
         <p className='desc'>
           Welcome to our page! Feel free to upload your student transcript in pdf format for a quick calculation of your major GPA.
         </p>
-        <form className='form'>
-          <input type='file' onChange={handleFile} />
-          <button onClick={callOcrApi}>
-            Upload
-          </button>
+        <form className='submitForm' onSubmit={callOcrApi}>
+        <input className='fileInput' type='file' onChange={handleFile}/>
+        <button className='fileUpload' type='submit'>
+          Upload
+        </button>
         </form>
       </div>
       <p className='majorGPA'>
@@ -71,14 +75,12 @@ function App() {
             <th>GPA</th>
           </tr>
         </thead>
-        <tbody> {/*dummy data*/}
-          <tr> <td>CSCI 101</td> <td>3.00</td> <td>4</td></tr>
-          <tr> <td>CSCI 102</td> <td>3.00</td> <td>3.7</td></tr>
-          <tr> <td>CSCI 103</td> <td>3.00</td> <td>2</td></tr>
+        <tbody>{/*dummy data*/}
+          <tr><td>CSCI 101</td><td>3.00</td><td>4</td></tr>
+          <tr><td>CSCI 102</td><td>3.00</td><td>3.7</td></tr>
+          <tr><td>CSCI 103</td><td>3.00</td><td>2</td></tr>
         </tbody>
       </table>
-
-
       {result ? result : null}
     </>
   )
