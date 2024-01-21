@@ -3,7 +3,7 @@ const fs = require('fs');
 
 
 
-const pdfPath = 'SSR_TSRPT2.pdf'
+const pdfPath = 'SSR_TSRPT2.pdf' //path to pdf file
 
 
 
@@ -56,14 +56,14 @@ const sortData = (pdftext) => {
         //check if string countains Course Description
         if(transcriptArray[i].includes("Course Description")) {
             for(let j=i+1; j < transcriptArray.length; j++) {
-                
+                // look through term and find the term
                 if(transcriptArray[j].includes("Term")){
                     
                     break;
                 }
                 else if(transcriptArray[j].includes("Contact Hours")) {
         
-                    grades.push(transcriptArray[j-1]);
+                    grades.push(transcriptArray[j-1]); //push the course and grade
                 }
 
             }
@@ -78,7 +78,7 @@ const sortData = (pdftext) => {
 
 
     console.log(grades);
-    fs.writeFileSync('transcript.json', JSON.stringify(transcriptArray, null, 2));
+    fs.writeFileSync('transcript.json', JSON.stringify(transcriptArray, null, 2)); //save it to json in readable format
 
 
     
@@ -87,7 +87,7 @@ const sortData = (pdftext) => {
 let x = textExtracter(pdfPath).then((data) => {
     //console.log(data);
 
-    return data;
+    return data;//return data to x
 }
 )
 .catch((error) => {
@@ -95,6 +95,5 @@ let x = textExtracter(pdfPath).then((data) => {
 }
 )
 
-//using try catch to catch 
-//console.log(x);
+module.exports = textExtracter;
 
