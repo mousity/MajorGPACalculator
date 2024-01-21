@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import logo from './assets/logo.png'
 import axios from 'axios'
+import Calculator from './components/Calculator.jsx'
+import useInfoContext from "./components/useInfoContext.jsx";
 import './App.css'
 
 function App() {
-  // const [count, setCount] = useState(0)
-  const [result, setResult] = useState('');
+  const {majorGPA, setMajorGPA} = useInfoContext();
+  const {result, setResult} = useInfoContext();
   const [error, setError] = useState(null);
 
   const formData = new FormData();
@@ -44,8 +46,10 @@ function App() {
   };
 
 
-  // useEffect(() => {
-  // }, [])
+  useEffect(() => {
+
+  }, [])
+  
   return (
     <>
       <div className='heading'>
@@ -65,7 +69,7 @@ function App() {
         </form>
       </div>
       <p className='majorGPA'>
-        Major GPA:
+        Major GPA: {majorGPA}
       </p>
       <table className='table'>
         <thead>
@@ -75,11 +79,12 @@ function App() {
             <th>GPA</th>
           </tr>
         </thead>
-        <tbody>{/*dummy data*/}
+        {/* <tbody>
           <tr><td>CSCI 101</td><td>3.00</td><td>4</td></tr>
           <tr><td>CSCI 102</td><td>3.00</td><td>3.7</td></tr>
           <tr><td>CSCI 103</td><td>3.00</td><td>2</td></tr>
-        </tbody>
+        </tbody>*/}
+        <Calculator />
       </table>
       {result ? result : null}
     </>
