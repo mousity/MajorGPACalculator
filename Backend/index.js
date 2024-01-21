@@ -6,6 +6,7 @@ const pdf = require('pdf-parse');
 const fs = require('fs');
 // const API_KEY = require('dotenv').config().parsed.API_KEY // add the api key to the env instead of having it in the codebase
 const multer = require('multer')
+const textExtracter = require('./text_extracter');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
@@ -43,6 +44,7 @@ app.post('/perform-ocr', async (req, res) => {
 app.get('/extract-text', (req, res) => {
   const pdfPath = './SamrMounaTranscriptFall20231.pdf';
   let dataBuffer = fs.readFileSync(pdfPath);
+  
   pdf(dataBuffer).then(function (data) {
     res.send({ text: data.text });
   }).catch(error => {
@@ -55,15 +57,35 @@ app.post('/extract-text', upload.single('file'), (req, res) => {//currently usin
   const pdfPath = "./" + req.file.path;
   console.log(pdfPath);
   let dataBuffer = fs.readFileSync(pdfPath);
-  pdf(dataBuffer).then(function (data) {
-    console.log({ text: data.text })
-    res.send({ text: data.text });
+  let extraxtedText = textExtracter(pdfPath);
+  textExtracter(pdfPath).then((data) => {
+    console.log(data);// Extracted text
+    /**
+     *  Manipulate the extracted text where it becomes an array of json objects
+     * {
+     *  courseCode: "COMP 248",
+     *  courseTitle: "Object-Oriented Programming I",
+     *  courseCredits: 3,
+     * }
+     * right now its an array of strings
+     * 
+     */
+    res.send({ text: data });
   }).catch(error => {
     res.status(500).send("Error extracting text: " + error.message);
   });
+  
+  // pdf(dataBuffer).then(function (data) {
+  //   console.log({ text: data.text })
+  //   res.send({ text: data.text });
+  // }).catch(error => {
+  //   res.status(500).send("Error extracting text: " + error.message);
+  // });
 });
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+

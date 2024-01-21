@@ -84,16 +84,13 @@ const sortData = (pdftext) => {
     
 }
 
-let x = textExtracter(pdfPath).then((data) => {
-    //console.log(data);
 
-    return data;//return data to x
+
+textExtracter(pdfPath).then((text) => {
+    console.log(text);
 }
-)
-.catch((error) => {
+).catch((error) => {
     console.log(error);
-}
-)
-
+});
 module.exports = textExtracter;
 
