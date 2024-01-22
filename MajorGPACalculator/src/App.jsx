@@ -42,7 +42,7 @@ function App() {
 
       <div className='card'>
         <p className='desc'>
-          Welcome to our page! Feel free to upload your student transcript in pdf format for a quick calculation of your major GPA.
+          Welcome to our page! Feel free to upload your John Jay student transcript in pdf format for a quick calculation of your major GPA.
         </p>
         <form className='submitForm' onSubmit={uploadPDF}>
         <input className='fileInput' type='file' onChange={handleFile}/><br></br>
