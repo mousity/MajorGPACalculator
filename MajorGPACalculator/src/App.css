@@ -40,3 +40,65 @@
 .read-the-docs {
   color: #888;
 }
+
+
+body {
+font-family: 'Arial', sans-serif;
+background-color: whitesmoke;
+margin: 0;
+}
+
+.heading {
+  text-align: center;
+  padding: 2px;
+  border-radius: 50px;
+  background-color: #78878b;
+  color: #ffffff;
+}
+.logo {
+  width: 80px;
+  height: 100px;
+  margin-right: 10px;
+}
+.card {
+  background-color: #03cdfa;
+  border-radius: 50px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 50px;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.desc {
+  text-align: center;
+  
+}
+
+.submitForm {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.fileInput {
+  margin-bottom: 10px;
+}
+
+.fileUpload {
+  background-color: #108de1;
+  color: #ffffff;
+  padding: 10px 20px;
+}
+
+.majorGPA {
+  text-align: center;
+  font-size: 35px;
+  margin: 25px 0;
+}
+
+.table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  font-size: 20px;
+}
