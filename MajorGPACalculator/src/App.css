@@ -55,11 +55,7 @@ margin: 0;
   background-color: #78878b;
   color: #ffffff;
 }
-.logo {
-  width: 80px;
-  height: 100px;
-  margin-right: 10px;
-}
+
 .card {
   background-color: #03cdfa;
   border-radius: 50px;
@@ -75,9 +71,20 @@ margin: 0;
 }
 
 .submitForm {
-  display: flex;
+  display: block;
   flex-direction: row;
   align-items: center;
+}
+
+input::file-selector-button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
 }
 
 .fileInput {
