@@ -52,7 +52,7 @@ function App() {
         </form>
       </div>
       <p className='majorGPA'>
-        Major GPA: {isNaN(majorGPA) ? 'N/A' : majorGPA}
+        Major GPA: {isNaN(majorGPA) || majorGPA == 0 ? 'N/A' : majorGPA}
       </p>
         <Calculator />
     </>
