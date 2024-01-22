@@ -101,6 +101,7 @@ input::file-selector-button {
   text-align: center;
   font-size: 35px;
   margin: 25px 0;
+  color: black;
 }
 
 .table {
@@ -108,4 +109,5 @@ input::file-selector-button {
   margin: 20px auto;
   border-collapse: collapse;
   font-size: 20px;
+  color: black;
 }

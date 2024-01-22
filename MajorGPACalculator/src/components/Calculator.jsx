@@ -6,6 +6,7 @@ export default function Calculator() {
   useEffect(() => {
     let sum = 0;
     let credits = 0;
+    console.log(result);
     if (result) {
     result.map((course) => {
       sum += parseInt(course.grade) * parseInt(course.credits);
