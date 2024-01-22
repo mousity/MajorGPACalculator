@@ -52,22 +52,20 @@ margin: 0;
   text-align: center;
   padding: 2px;
   border-radius: 50px;
-  background-color: #78878b;
-  color: #ffffff;
 }
 
 .card {
   background-color: #03cdfa;
-  border-radius: 50px;
+  border-radius: 3em;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 50px;
-  margin: 20px auto;
-  max-width: 600px;
+  padding: 2em;
+  margin: 1em auto;
+  max-width: 30em;
+  font-size: 1.5em;
 }
 
 .desc {
   text-align: center;
-  
 }
 
 .submitForm {
@@ -77,9 +75,11 @@ margin: 0;
 }
 
 input::file-selector-button {
+  background-color: #108de1;
+  color: #ffffff;
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding: 10px 20px;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -89,12 +89,14 @@ input::file-selector-button {
 
 .fileInput {
   margin-bottom: 10px;
+  font-size: .7em;
 }
 
 .fileUpload {
   background-color: #108de1;
   color: #ffffff;
   padding: 10px 20px;
+  font-size: .7em;
 }
 
 .majorGPA {
